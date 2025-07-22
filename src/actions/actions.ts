@@ -34,7 +34,7 @@ const apiSchedule: EndpointConfig[] = [
 
 const lastState: Record<string, { lastHash?: string; lastFetched?: number }> = {};
 
-function hashJSON(data: any) {
+function hashJSON(data: unknown) {
   return crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex');
 }
 
