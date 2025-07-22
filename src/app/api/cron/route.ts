@@ -1,12 +1,29 @@
+// import { NextResponse } from 'next/server';
+// import { sendToCloud } from '@/actions/actions';
+
+// export async function GET(): Promise<NextResponse> {
+//   console.log('⏱ Fetching & uploading data...');
+//   await sendToCloud();
+
+//   return NextResponse.json({ message: 'Data uploaded successfully' });
+// }
+
+// app/api/cron/route.ts
 import { NextResponse } from 'next/server';
 import { sendToCloud } from '@/actions/actions';
 
 export async function GET(): Promise<NextResponse> {
-  console.log('⏱ Fetching & uploading data...');
-  await sendToCloud();
+  console.log('⏱ Server-side upload trigger');
 
-  return NextResponse.json({ message: 'Data uploaded successfully' });
+  const result = await sendToCloud();
+
+  if (result.success) {
+    return NextResponse.json({ message: 'Upload completed', uploaded: result.uploaded });
+  } else {
+    return NextResponse.json({ message: result.message }, { status: 500 });
+  }
 }
+
 
 // import { NextResponse } from 'next/server';
 // import { sendToCloud } from '@/actions/actions';

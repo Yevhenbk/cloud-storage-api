@@ -1,22 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
-
 /**
  * Home page that triggers the backend cron route on mount.
  */
 export default function HomePage(): React.JSX.Element {
-  useEffect(() => {
-    const initUpload = async (): Promise<void> => {
-      try {
-        await fetch('/api/cron');
-      } catch (error) {
-        console.error('Failed to initialize cron job:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const initUpload = async (): Promise<void> => {
+  //     try {
+  //       await fetch('/api/cron');
+  //     } catch (error) {
+  //       console.error('Failed to initialize cron job:', error);
+  //     }
+  //   };
 
-    initUpload();
-  }, []);
+  //   initUpload();
+  // }, []);
 
   return (
     <main className="p-8">
