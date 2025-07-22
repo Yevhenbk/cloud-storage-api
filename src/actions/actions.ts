@@ -95,7 +95,7 @@ export async function sendToCloud(): Promise<{ success: true; uploaded: string[]
 
     return { success: true, uploaded };
   } catch (err) {
-    console.error('❌ sendToCloud failed:', err);
+    console.error('❌ sendToCloud failed:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
     return { success: false, message: 'Failed during upload' };
   }
 }
