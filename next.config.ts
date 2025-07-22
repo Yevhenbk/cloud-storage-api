@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+// next.config.js
+const nextConfig = {
   async headers() {
     return [
       {
@@ -8,14 +7,13 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "script-src 'self' 'unsafe-eval'; object-src 'none';",
+            value:
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'none';",
           },
         ],
       },
     ];
   },
-  // other config options here...
 };
 
 export default nextConfig;
-
