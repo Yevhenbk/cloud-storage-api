@@ -26,7 +26,7 @@ function getGCSConfig() {
  * @param fileName - Full filename including any desired path/prefix.
  * @returns The name of the uploaded file.
  */
-export async function uploadToGCS(data: any, fileName: string): Promise<string> {
+export async function uploadToGCS(data: unknown, fileName: string): Promise<string> {
   const { projectId, clientEmail, privateKey, bucketName } = getGCSConfig();
 
   const storage = new Storage({
