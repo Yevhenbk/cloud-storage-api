@@ -53,6 +53,15 @@ function shouldFetch(config: EndpointConfig): boolean {
   }
 }
 
+function pad(n: number): string {
+  return n.toString().padStart(2, '0');
+}
+
+function getLocalTimestamp(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+}
+
 export async function sendToCloud(): Promise<{ success: true; uploaded: string[] } | { success: false; message: string }> {
   const uploaded: string[] = [];
 
@@ -74,7 +83,7 @@ export async function sendToCloud(): Promise<{ success: true; uploaded: string[]
       const hasChanged = config.detectChanges ? newHash !== prevHash : true;
 
       if (hasChanged) {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const timestamp = getLocalTimestamp();
         const fileName = `${config.name}/${timestamp}.json`;
 
         await uploadToGCS(json, fileName);
