@@ -1,19 +1,28 @@
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
-import { sendToCloud } from "@/actions/actions";
+import { sendToCloud, downloadGTFSFiles } from "@/actions/actions";
 
 export async function GET(): Promise<NextResponse> {
   console.log("⏱ Server-side upload trigger");
 
-  const result = await sendToCloud();
+  try {
+    // Run both functions in parallel
+    const [uploadResult, gtfsResult] = await Promise.all([
+      sendToCloud(),
+      downloadGTFSFiles(),
+    ]);
 
-  if (result.success) {
     return NextResponse.json({
-      message: "Upload completed",
-      uploaded: result.uploaded,
+      message: "Cron job completed",
+      upload: uploadResult,
+      gtfs: gtfsResult,
     });
-  } else {
-    return NextResponse.json({ message: result.message }, { status: 500 });
+  } catch (error) {
+    console.error("❌ Cron job error:", error);
+    return NextResponse.json(
+      { message: "Cron job failed", error: String(error) },
+      { status: 500 }
+    );
   }
 }

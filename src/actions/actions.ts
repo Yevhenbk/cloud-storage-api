@@ -1,6 +1,7 @@
 "use server";
 
 import { uploadToGCS } from "@/lib/gcs";
+import { downloadGTFSFiles } from "@/lib/gtfs";
 import crypto from "crypto";
 import apiSchedule, { EndpointConfig } from "@/lib/apiSchedule";
 
@@ -92,3 +93,6 @@ export async function sendToCloud(): Promise<
     return { success: false, message: "Failed during upload" };
   }
 }
+
+export { downloadGTFSFiles };
+
